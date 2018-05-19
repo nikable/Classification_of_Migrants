@@ -1,0 +1,12 @@
+#!C:\Users\singh\PycharmProjects\Twitter_Crawling\venv\Scripts\python.exe
+# EASY-INSTALL-ENTRY-SCRIPT: 'mosaik-powerfactory','console_scripts','mosaik-powerfactory-ldf'
+__requires__ = 'mosaik-powerfactory'
+import re
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(
+        load_entry_point('mosaik-powerfactory', 'console_scripts', 'mosaik-powerfactory-ldf')()
+    )
