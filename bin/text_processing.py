@@ -2,34 +2,44 @@ import re
 import string
 
 import numpy.random as npr
-from data_import import data_csv_import
+from data_import import data_csv_import,read_csv_dataframe
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize,sent_tokenize
+import pandas as pd
+from nltk.tokenize import word_tokenize,sent_tokenize
+from  pre_processing import removePunctuations,removeNonAscii
+
 
 
 def text_processed():
-    txt = data_csv_import('20180401024547.csv')
+    file = ['employee.csv','tourist.csv','refugee.csv','student.csv']
+    frames = []
+    for x in file :
+        frames.append(read_csv_dataframe(x))
     # txt = data_txt_import_array('test.txt')
     # txt = strip_punctation(txt.lower())
-    txt = remove_numeric_digit(txt)
-    format_token = text_stop_words(txt)
-    lemmeted_token = token_lemmetizer(format_token)
-    stemmed_token = token_stemmer(lemmeted_token)
-    str = ' '.join(stemmed_token)
-    str_array = re.split(r'[.]', str)
-    # print(txt)
-    # print('filtered_sentence \n')
-    # print(format_token)
-    # stemming
-    # print('Stemmed token \n')
-    # print(stemmed_token)
-    # lemm
-    # print('Lemmeted token \n')
-    # print(lemmeted_token)
-    # print('Lemmeted string \n')
-    # print(str)
-    return str_array
+    txt = pd.concat(frames)
+    print(txt)
+
+    stop_words = set(stopwords.words('English'))  # set of English stop words
+    remove_stop_words = lambda r: [[word for word in word_tokenize(sente) if word not in stop_words] for sente in
+                                   sent_tokenize(r)]
+    txt.Tweets.str.lower().apply(remove_stop_words)
+    #print(txt.Tweets)
+    txt['Tweets'].str.replace('[^A-Za-z\s]+', '').str.split(expand=False)
+    #print(txt.Tweets)
+    txt['Tweets'] = txt['Tweets'].astype('str')
+
+    txt['Tweets']= re.sub (r'([^a-zA-Z\s]+?)', '', str(txt['Tweets']))
+    #tweets = removePunctuations(cleantweets)
+    #tweets = removeNonAscii(tweets)
+
+    txt.to_csv('pre_processed.csv', sep='\t')
+    print(txt)
+
+
+    return txt
 
 
 def text_stop_words(unformat_text):
@@ -78,3 +88,6 @@ def split_string_2_data_array(data, train_split=0.8):
     npr.shuffle(data)
 
     return (data[:num_train], data[num_train:])
+
+
+

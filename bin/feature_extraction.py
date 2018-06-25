@@ -27,16 +27,17 @@ def count_vectorizer_feature_vector():
 
 
 def tf_idf_vect_feature_vector():
-    token_array = text_processed()
-    training_token_array, test_token_array = split_string_2_data_array(token_array, 0.8)
+    df = text_processed()
+    #training_token_array, test_token_array = split_string_2_data_array(df, 0.8)
     # print("token: ", token_array)
-    vectorizer = TfidfVectorizer(stop_words='english', analyzer="word")
+    vectorizer = TfidfVectorizer()
     # print(vectorizer)
-    vec = vectorizer.fit(training_token_array)
-    vec_matrix = vectorizer.transform(training_token_array)
+    vec = vectorizer.fit_transform(df['Tweets'])
+    #vec_matrix = vectorizer.transform(df['Tweets'])
+    print(vectorizer.get_feature_names())
     # data_frame = pd.DataFrame(matrix.toarray(), columns=vectorizer.get_feature_names())
     # print(data_frame)
-    return (test_token_array, vec, vec_matrix)
+    return vec
 
 
 def tf_idf_trans_feature_vector():
