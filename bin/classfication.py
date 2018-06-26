@@ -12,9 +12,9 @@ def decision_tree_classification():
     export_graphviz(tree, out_file=dotfile,filled=True, rounded=True,special_characters=True)
     graph = pydotplus.graph_from_dot_data(dotfile.getvalue())
     Image(graph.create_png())
-    predict =tree.predict(df_test['tweets_vec'].tolist(),df_test.tag.tolist())
-    print(predict)
-    return predict
+    #predict =tree.predict(df_test['tweets_vec'].tolist(),df_test.tag.tolist())
+    #print(predict)
+    return tree
 
 def svm_classification():
     df_test, df_train, df = tf_idf_vect_feature_vector()

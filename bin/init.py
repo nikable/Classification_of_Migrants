@@ -6,8 +6,8 @@ from classfication import decision_tree_classification,svm_classification
 
 #array = text_processed()
 #print(array)
-#vec = decision_tree_classification()
-vec = svm_classification()
+vec = decision_tree_classification()
+#vec = svm_classification()
 
 print(vec)
 #print(vec.toarray())
