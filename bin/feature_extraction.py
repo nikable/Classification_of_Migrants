@@ -5,6 +5,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, T
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import euclidean_distances, cosine_distances, manhattan_distances
 from text_processing import text_processed, split_string_2_data_array
+from sklearn.model_selection import train_test_split
+
 
 pd.set_option("display.max_columns", 100)
 np.set_printoptions(threshold=np.inf)
@@ -28,16 +30,19 @@ def count_vectorizer_feature_vector():
 
 def tf_idf_vect_feature_vector():
     df = text_processed()
-    #training_token_array, test_token_array = split_string_2_data_array(df, 0.8)
-    # print("token: ", token_array)
+
+
     vectorizer = TfidfVectorizer()
-    # print(vectorizer)
-    vec = vectorizer.fit_transform(df['Tweets'])
-    #vec_matrix = vectorizer.transform(df['Tweets'])
+
+    vec_train = vectorizer.fit_transform(df.Tweets)
+    df['tweets_vec']  = list(vec_train.toarray())
+    train, test = train_test_split(df, test_size=0.2)
+
+
     print(vectorizer.get_feature_names())
-    # data_frame = pd.DataFrame(matrix.toarray(), columns=vectorizer.get_feature_names())
-    # print(data_frame)
-    return vec
+
+    print(df)
+    return test,train,df
 
 
 def tf_idf_trans_feature_vector():

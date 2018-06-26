@@ -1,11 +1,12 @@
 
 from text_processing import text_processed
 from feature_extraction import tf_idf_vect_feature_vector
+from classfication import decision_tree_classification
 
 
 #array = text_processed()
 #print(array)
-vec = tf_idf_vect_feature_vector()
+vec = decision_tree_classification()
 
-#print(test_token_array)
-print(vec.toarray())
+print(vec)
+#print(vec.toarray())
