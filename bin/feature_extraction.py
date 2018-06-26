@@ -36,7 +36,7 @@ def tf_idf_vect_feature_vector():
 
     vec_train = vectorizer.fit_transform(df.Tweets)
     df['tweets_vec']  = list(vec_train.toarray())
-    df.to_csv('tfidf_vector')
+    #df.to_csv('tfidf_vector.csv')
     train, test = train_test_split(df, test_size=0.2)
 
 
