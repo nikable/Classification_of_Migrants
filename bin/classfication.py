@@ -1,4 +1,3 @@
-
 from sklearn.svm import SVC
 from feature_extraction import tf_idf_vect_feature_vector
 from sklearn.tree import DecisionTreeClassifier,export_graphviz
@@ -9,6 +8,8 @@ from mlxtend.plotting import plot_decision_regions
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
 
 def decision_tree_classification():
     df_test,df_train,df = tf_idf_vect_feature_vector()
@@ -21,8 +22,17 @@ def decision_tree_classification():
     
     # Calculate metrics globally by counting the total true positives, 
     # false negatives and false positives.
+    # Accuracy = TP + TN / (TP + TN + FP + FN)
+    # Precision = TP / (TP + FP)
+    # Recall = TP / (TP + FN)  Also known as sensitivity, or True Positive Rate
+    # F1 = 2 * Precision * Recall / (Precision + Recall)
+    
+    # print('Accuracy:', accuracy_score(df_test['tag'].tolist(), y_pred)
+    
     f1 = f1_score(df_test['tag'].tolist(), y_pred, average='micro')
-    print("f1_score is :", f1)
+    print('Recall:', recall_score(df_test['tag'].tolist(), y_pred))
+    print('Precision:', precision_score(df_test['tag'].tolist(), y_pred))
+    print('f1_score is', f1)
 
     #dotfile = open("dtree2.dot", 'w')
     # dotfile = StringIO()
