@@ -29,9 +29,10 @@ def decision_tree_classification():
     
     # print('Accuracy:', accuracy_score(df_test['tag'].tolist(), y_pred)
     
-    f1 = f1_score(df_test['tag'].tolist(), y_pred, average='micro')
     print('Recall:', recall_score(df_test['tag'].tolist(), y_pred))
     print('Precision:', precision_score(df_test['tag'].tolist(), y_pred))
+
+    f1 = f1_score(df_test['tag'].tolist(), y_pred, average='micro')
     print('f1_score is', f1)
 
     #dotfile = open("dtree2.dot", 'w')
@@ -59,6 +60,9 @@ def svm_classification():
     #predict = clf.predict(df_test['tweets_vec'].tolist(), df_test.tag.tolist())
     predict = clf.predict(df_test['tweets_vec'].tolist(), df_test['tag'].tolist())
     print(predict)
+
+    print('Recall:', recall_score(df_test['tag'].tolist(), predict))
+    print('Precision:', precision_score(df_test['tag'].tolist(), predict))
 
     f1 = f1_score(df_test['tag'].tolist(), predict, average='micro')
     print("f1_score is :", f1)
